@@ -17,11 +17,12 @@ client = discord.Client(intents=intents)
 @client.event
 async def on_voice_state_update(member, before, after):
     if before.channel is None and after.channel is not None:
-        message = f"{member.display_name} joined: {after.channel.name} 🔫💣🪖"
-        url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
-        requests.post(url, data={
-            "chat_id": TELEGRAM_CHAT_ID,
-            "text": message
-        })
+        if after.channel.name != "Secret Coup":
+            message = f"{member.display_name} joined: {after.channel.name} 🔫💣🪖"
+            url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
+            requests.post(url, data={
+                "chat_id": TELEGRAM_CHAT_ID,
+                "text": message
+            })
 
 client.run(DISCORD_TOKEN)
