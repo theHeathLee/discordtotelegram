@@ -18,11 +18,11 @@ client = discord.Client(intents=intents)
 async def on_voice_state_update(member, before, after):
     if before.channel is None and after.channel is not None:
         if after.channel.name != "Secret Coup":
-            if member.display_name == "GEEK Music":
+            if member.display_name != "Hunterly":
                 #do not send message for GEEK Music
                 return
             else:
-                message = f"{member.display_name} joined: {after.channel.name} 🔫💣🪖"
+                message = f"{member.display_name} the bitch just joined {after.channel.name}"
             url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
             requests.post(url, data={
                 "chat_id": TELEGRAM_CHAT_ID,
