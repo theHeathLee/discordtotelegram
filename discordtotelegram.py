@@ -4,7 +4,7 @@ import os
 
 DISCORD_TOKEN = os.environ['DISCORD_TOKEN']
 TELEGRAM_TOKEN = os.environ['TELEGRAM_TOKEN']
-TELEGRAM_CHAT_ID = os.environ['TELEGRAM_CHAT_ID_TEST']
+TELEGRAM_CHAT_ID = os.environ['TELEGRAM_CHAT_ID']
 
 
 intents = discord.Intents.default()
