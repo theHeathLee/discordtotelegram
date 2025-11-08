@@ -1,6 +1,7 @@
 import discord
 import requests
 import os
+import random
 
 DISCORD_TOKEN = os.environ['DISCORD_TOKEN']
 TELEGRAM_TOKEN = os.environ['TELEGRAM_TOKEN']
@@ -14,6 +15,28 @@ intents.members = True
 
 client = discord.Client(intents=intents)
 
+# load phrases from phrases.txt (one phrase per line). Falls back to defaults.
+def load_phrases(path=None):
+    if path is None:
+        base = os.path.dirname(__file__)
+        path = os.path.join(base, "phrases.txt")
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            phrases = [line.strip() for line in f if line.strip()]
+        if not phrases:
+            raise ValueError("no phrases found")
+        return phrases
+    except Exception:
+        return [
+            "has joined",
+        ]
+
+PHRASES = load_phrases()
+
+def random_message(display_name):
+    phrase = random.choice(PHRASES)
+    return f"{display_name} {phrase}"
+
 @client.event
 async def on_voice_state_update(member, before, after):
     if before.channel is None and after.channel is not None:
@@ -21,20 +44,8 @@ async def on_voice_state_update(member, before, after):
             if member.display_name == "GEEK Music":
                 #do not send message for GEEK Music
                 return
-            elif member.display_name == "Hunterly":
-                message = f"Hunters here, time to get this bread"
-            elif member.display_name == "SPKross":
-                message = f"Jacob the absolute legend has arrived"
-            elif member.display_name == "Heath":
-                message = f"All Rise for King Heath"
-            elif member.display_name == "Currahee901":
-                message = f"God help us, Tommy has entered the building"
-            elif member.display_name == "Futsch":
-                message = f"Selim wants to hunt some ghosts"
-            elif member.display_name == "Jamirous":
-                message = f"Jan is here to loot in the blue zone"
             else:
-                message = f"{member.display_name} the just joined {after.channel.name}"
+                message = random_message(member.display_name)
             url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
             requests.post(url, data={
                 "chat_id": TELEGRAM_CHAT_ID,
