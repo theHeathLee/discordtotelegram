@@ -33,6 +33,8 @@ async def on_voice_state_update(member, before, after):
                 message = f"Selim wants to hunt some ghosts"
             elif member.display_name == "Jamirous":
                 message = f"Jan is here to loot in the blue zone"
+            elif member.display_name == "RedLeg_198":
+                message = f"Tommy is patiently waiting in discord"
             else:
                 message = f"{member.display_name} the just joined {after.channel.name}"
             url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
