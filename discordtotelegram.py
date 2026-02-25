@@ -44,5 +44,12 @@ async def on_voice_state_update(member, before, after):
                 "chat_id": TELEGRAM_CHAT_ID,
                 "text": message
             })
+        elif after.channel.name == "Arc Commies🤖":
+            message = f"{member.display_name} the just joined {after.channel.name}, prepare for the revolution"
+            url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
+            requests.post(url, data={
+                "chat_id": TELEGRAM_CHAT_ID,
+                "text": message
+            })
 
 client.run(DISCORD_TOKEN)
