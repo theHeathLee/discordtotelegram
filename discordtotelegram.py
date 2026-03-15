@@ -14,6 +14,31 @@ intents.members = True
 
 client = discord.Client(intents=intents)
 
+name_map = {
+    "Hunterly": "Hunter",
+    "SPKross": "Jacob",
+    "Heath": "Heath",
+    "Currahee901": "Tommy",
+    "Futsch": "Selim",
+    "Jamirous": "Jan",
+    "RedLeg_198": "Tommy",
+    "snuslas": "Niklas",
+}
+
+name_messages = {
+    "Hunterly": "{name}s here, time to get this bread",
+    "SPKross": "{name} the absolute legend has arrived",
+    "Heath": "All Rise for King {name}",
+    "Currahee901": "God help us, {name} has entered the building",
+    "Futsch": "{name} is in the house",
+    "Jamirous": "{name} is here to loot in the blue zone",
+    "RedLeg_198": "{name} is patiently waiting in discord",
+    "snuslas": "Gruess Gott, {name} is here",
+}
+
+def get_name(display_name):
+    return name_map.get(display_name, display_name)
+
 @client.event
 async def on_voice_state_update(member, before, after):
     if before.channel is None and after.channel is not None:
@@ -21,35 +46,24 @@ async def on_voice_state_update(member, before, after):
             if member.display_name == "GEEK Music":
                 #do not send message for GEEK Music
                 return
-            elif member.display_name == "Hunterly":
-                message = f"Hunters here, time to get this bread"
-            elif member.display_name == "SPKross":
-                message = f"Jacob the absolute legend has arrived"
-            elif member.display_name == "Heath":
-                message = f"All Rise for King Heath"
-            elif member.display_name == "Currahee901":
-                message = f"God help us, Tommy has entered the building"
-            elif member.display_name == "Futsch":
-                message = f"Selim is in the house"
-            elif member.display_name == "Jamirous":
-                message = f"Jan is here to loot in the blue zone"
-            elif member.display_name == "RedLeg_198":
-                message = f"Tommy is patiently waiting in discord"
-            elif member.display_name == "snuslas":
-                message = f"Gruess Gott, Niklas is here"
+            name = get_name(member.display_name)
+            if member.display_name in name_messages:
+                message = name_messages[member.display_name].format(name=name)
             else:
-                message = f"{member.display_name} the just joined {after.channel.name}"
+                message = f"{member.display_name} just joined {after.channel.name}"
             url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
             requests.post(url, data={
                 "chat_id": TELEGRAM_CHAT_ID,
                 "text": message
             })
         elif after.channel.name == "Arc Commies🤖":
-            message = f"{member.display_name} the just joined {after.channel.name}, prepare for the revolution"
+            name = get_name(member.display_name)
+            message = f"{name} just joined {after.channel.name}, prepare for the revolution"
             url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
             requests.post(url, data={
                 "chat_id": TELEGRAM_CHAT_ID,
                 "text": message
             })
 
-client.run(DISCORD_TOKEN)
+if __name__ == "__main__":
+    client.run(DISCORD_TOKEN)
