@@ -42,28 +42,21 @@ def get_name(display_name):
 @client.event
 async def on_voice_state_update(member, before, after):
     if before.channel is None and after.channel is not None:
-        if after.channel.name != "Secret Coup":
-            if member.display_name == "GEEK Music":
-                #do not send message for GEEK Music
-                return
-            name = get_name(member.display_name)
-            if member.display_name in name_messages:
-                message = name_messages[member.display_name].format(name=name)
-            else:
-                message = f"{member.display_name} just joined {after.channel.name}"
-            url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
-            requests.post(url, data={
-                "chat_id": TELEGRAM_CHAT_ID,
-                "text": message
-            })
-        elif after.channel.name == "Arc Commies":
-            name = get_name(member.display_name)
+        if after.channel.name == "Secret Coup":
+            return
+        if member.display_name == "GEEK Music":
+            return
+        name = get_name(member.display_name)
+        if after.channel.name == "Arc Commies":
             message = f"{name} just joined {after.channel.name}, prepare for the revolution"
-            url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
-            requests.post(url, data={
-                "chat_id": TELEGRAM_CHAT_ID,
-                "text": message
-            })
+        elif member.display_name in name_messages:
+            message = name_messages[member.display_name].format(name=name)
+        else:
+            message = f"{member.display_name} just joined {after.channel.name}"
+        requests.post(f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage", data={
+            "chat_id": TELEGRAM_CHAT_ID,
+            "text": message
+        })
 
 if __name__ == "__main__":
     client.run(DISCORD_TOKEN)
