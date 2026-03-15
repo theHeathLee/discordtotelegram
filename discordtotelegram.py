@@ -28,7 +28,7 @@ name_map = {
 name_messages = {
     "Hunterly": "{name}s here, time to get this bread",
     "SPKross": "{name} the absolute legend has arrived",
-    "Heath": "All Rise for King {name}",
+    "Heath": "come commit war crimes with {name}",
     "Currahee901": "God help us, {name} has entered the building",
     "Futsch": "{name} is in the house",
     "Jamirous": "{name} is here to loot in the blue zone",
