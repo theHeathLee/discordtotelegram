@@ -28,7 +28,7 @@ name_map = {
 name_messages = {
     "Hunterly": "{name}s here, time to get this bread",
     "SPKross": "{name} the absolute legend has arrived",
-    "Heath": "All Rise for King {name}",
+    "Heath": "come commit war crimes with {name}",
     "Currahee901": "God help us, {name} has entered the building",
     "Futsch": "{name} is in the house",
     "Jamirous": "{name} is here to loot in the blue zone",
@@ -56,7 +56,7 @@ async def on_voice_state_update(member, before, after):
                 "chat_id": TELEGRAM_CHAT_ID,
                 "text": message
             })
-        elif after.channel.name == "Arc Commies🤖":
+        elif after.channel.name == "Arc Commies":
             name = get_name(member.display_name)
             message = f"{name} just joined {after.channel.name}, prepare for the revolution"
             url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
