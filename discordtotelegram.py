@@ -49,6 +49,13 @@ communist_sayings = [
     "Hey!, Dont shoot!",
 ]
 
+pubg_sayings = [
+    "lets play some classic PUBG",
+    "god bless PUBG",
+    "pew pew",
+    "arm the tactical frying pan",
+]
+
 def get_name(display_name):
     return name_map.get(display_name, display_name)
 
@@ -62,6 +69,9 @@ async def on_voice_state_update(member, before, after):
         name = get_name(member.display_name)
         if after.channel.name == "Arc Commies":
             saying = random.choice(communist_sayings)
+            message = f"{name} just joined {after.channel.name}. {saying}"
+        elif after.channel.name == "October Revolution":
+            saying = random.choice(pubg_sayings)
             message = f"{name} just joined {after.channel.name}. {saying}"
         elif member.display_name in name_messages:
             message = name_messages[member.display_name].format(name=name)
