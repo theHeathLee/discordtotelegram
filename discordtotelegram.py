@@ -1,6 +1,7 @@
 import discord
 import requests
 import os
+import random
 
 DISCORD_TOKEN = os.environ['DISCORD_TOKEN']
 TELEGRAM_TOKEN = os.environ['TELEGRAM_TOKEN']
@@ -36,6 +37,25 @@ name_messages = {
     "snuslas": "Gruess Gott, {name} is here",
 }
 
+communist_sayings = [
+    "goopatiy goopatiy",
+    "lets get gooping",
+    "a war chrime a day keeps the bourgeoisie away",
+    "Religion is the opium of the people.",
+    "Goop is greater than loot.",
+    "goop is the only way to win",
+    "arc raiders are the true proletariat",
+    "wanna team up?",
+    "Hey!, Dont shoot!",
+]
+
+pubg_sayings = [
+    "lets play some classic PUBG",
+    "god bless PUBG",
+    "pew pew",
+    "arm the tactical frying pan",
+]
+
 def get_name(display_name):
     return name_map.get(display_name, display_name)
 
@@ -48,11 +68,16 @@ async def on_voice_state_update(member, before, after):
             return
         name = get_name(member.display_name)
         if after.channel.name == "Arc Commies":
-            message = f"{name} just joined {after.channel.name}, prepare for the revolution"
+            saying = random.choice(communist_sayings)
+            message = f"{name} just joined {after.channel.name}. {saying}"
+        elif after.channel.name == "October Revolution":
+            saying = random.choice(pubg_sayings)
+            message = f"{name} just joined {after.channel.name}. {saying}"
         elif member.display_name in name_messages:
             message = name_messages[member.display_name].format(name=name)
         else:
-            message = f"{member.display_name} just joined {after.channel.name}"
+            saying = random.choice(communist_sayings)
+            message = f"{name} just joined {after.channel.name}. {saying}"
         requests.post(f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage", data={
             "chat_id": TELEGRAM_CHAT_ID,
             "text": message
