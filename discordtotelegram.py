@@ -38,16 +38,15 @@ name_messages = {
 }
 
 communist_sayings = [
-    "Workers of the world, unite!",
-    "From each according to his ability, to each according to his needs.",
-    "The proletarians have nothing to lose but their chains.",
+    "goopatiy goopatiy",
+    "lets get gooping",
+    "a war chrime a day keeps the bourgeoisie away",
     "Religion is the opium of the people.",
-    "The history of all hitherto existing society is the history of class struggles.",
-    "Let the ruling classes tremble at a communist revolution.",
-    "Seize the means of production!",
-    "Property is theft!",
-    "The philosophers have only interpreted the world; the point is to change it.",
-    "One step forward, two steps back.",
+    "Goop is greater than loot.",
+    "goop is the only way to win",
+    "arc raiders are the true proletariat",
+    "wanna team up?",
+    "Hey!, Dont shoot!",
 ]
 
 def get_name(display_name):
@@ -67,7 +66,8 @@ async def on_voice_state_update(member, before, after):
         elif member.display_name in name_messages:
             message = name_messages[member.display_name].format(name=name)
         else:
-            message = f"{member.display_name} just joined {after.channel.name}"
+            saying = random.choice(communist_sayings)
+            message = f"{name} just joined {after.channel.name}. {saying}"
         requests.post(f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage", data={
             "chat_id": TELEGRAM_CHAT_ID,
             "text": message
