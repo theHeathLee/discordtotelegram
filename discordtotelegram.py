@@ -1,6 +1,7 @@
 import discord
 import requests
 import os
+import random
 
 DISCORD_TOKEN = os.environ['DISCORD_TOKEN']
 TELEGRAM_TOKEN = os.environ['TELEGRAM_TOKEN']
@@ -36,6 +37,19 @@ name_messages = {
     "snuslas": "Gruess Gott, {name} is here",
 }
 
+communist_sayings = [
+    "Workers of the world, unite!",
+    "From each according to his ability, to each according to his needs.",
+    "The proletarians have nothing to lose but their chains.",
+    "Religion is the opium of the people.",
+    "The history of all hitherto existing society is the history of class struggles.",
+    "Let the ruling classes tremble at a communist revolution.",
+    "Seize the means of production!",
+    "Property is theft!",
+    "The philosophers have only interpreted the world; the point is to change it.",
+    "One step forward, two steps back.",
+]
+
 def get_name(display_name):
     return name_map.get(display_name, display_name)
 
@@ -48,7 +62,8 @@ async def on_voice_state_update(member, before, after):
             return
         name = get_name(member.display_name)
         if after.channel.name == "Arc Commies":
-            message = f"{name} just joined {after.channel.name}, prepare for the revolution"
+            saying = random.choice(communist_sayings)
+            message = f"{name} just joined {after.channel.name}. {saying}"
         elif member.display_name in name_messages:
             message = name_messages[member.display_name].format(name=name)
         else:
