@@ -70,7 +70,7 @@ async def on_voice_state_update(member, before, after):
         if after.channel.name == "Arc Commies":
             saying = random.choice(communist_sayings)
             message = f"{name} just joined {after.channel.name}. {saying}"
-        elif after.channel.name == "October Revolution":
+        elif after.channel.name == "Peoples Battleground":
             saying = random.choice(pubg_sayings)
             message = f"{name} just joined {after.channel.name}. {saying}"
         elif member.display_name in name_messages:
