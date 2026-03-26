@@ -56,6 +56,14 @@ pubg_sayings = [
     "arm the tactical frying pan",
 ]
 
+hunt_sayings = [
+    "No bounty left for the ruling class",
+    "Hunt together, die together",
+    "The bayou belongs to the people",
+    "The revolution will not be extracted",
+    "One bounty. One people",
+]
+
 def get_name(display_name):
     return name_map.get(display_name, display_name)
 
@@ -70,11 +78,12 @@ async def on_voice_state_update(member, before, after):
         if after.channel.name == "Arc Commies":
             saying = random.choice(communist_sayings)
             message = f"{name} just joined {after.channel.name}. {saying}"
-        elif after.channel.name == "October Revolution":
+        elif after.channel.name == "Peoples Battleground":
             saying = random.choice(pubg_sayings)
             message = f"{name} just joined {after.channel.name}. {saying}"
-        elif member.display_name in name_messages:
-            message = name_messages[member.display_name].format(name=name)
+        elif after.channel.name == "Peoples Hunt Showdown":
+            saying = random.choice(hunt_sayings)
+            message = f"{name} just joined {after.channel.name}. {saying}"
         else:
             saying = random.choice(communist_sayings)
             message = f"{name} just joined {after.channel.name}. {saying}"
