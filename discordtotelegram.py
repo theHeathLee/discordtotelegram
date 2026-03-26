@@ -84,8 +84,6 @@ async def on_voice_state_update(member, before, after):
         elif after.channel.name == "Peoples Hunt Showdown":
             saying = random.choice(hunt_sayings)
             message = f"{name} just joined {after.channel.name}. {saying}"
-        elif member.display_name in name_messages:
-            message = name_messages[member.display_name].format(name=name)
         else:
             saying = random.choice(communist_sayings)
             message = f"{name} just joined {after.channel.name}. {saying}"
