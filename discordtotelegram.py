@@ -64,6 +64,24 @@ hunt_sayings = [
     "One bounty. One people",
 ]
 
+hell_let_loose_sayings = [
+    "Never get off the boat",
+    "Charlie don't surf",
+    "The jungle is watching",
+    "Napalm in the morning hits different",
+    "Grab a shovel, comrade. This foxhole ain't gonna dig itself",
+    "Two tours and still can't read a map",
+    "The Ho Chi Minh Trail leads straight to a skill issue",
+    "Supply lines are for winners. We walk",
+    "Air support is a myth. Garry Owen",
+    "Check your six. Then check it again",
+    "The tree line is not your friend",
+    "Recon says clear. Recon lied",
+    "Dig in or die. Preferably dig in",
+    "The mortar pit is a sacred place",
+    "We were soldiers. Briefly.",
+]
+
 def get_name(display_name):
     return name_map.get(display_name, display_name)
 
@@ -83,6 +101,9 @@ async def on_voice_state_update(member, before, after):
             message = f"{name} just joined {after.channel.name}. {saying}"
         elif after.channel.name == "Peoples Hunt Showdown":
             saying = random.choice(hunt_sayings)
+            message = f"{name} just joined {after.channel.name}. {saying}"
+        elif after.channel.name == "Hell Let Loose":
+            saying = random.choice(hell_let_loose_sayings)
             message = f"{name} just joined {after.channel.name}. {saying}"
         else:
             saying = random.choice(communist_sayings)
